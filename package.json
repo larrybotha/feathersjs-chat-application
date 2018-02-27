@@ -1,11 +1,12 @@
 {
   "name": "feathersjs-chat-application",
-  "description":
-    "Learning and annotations from https://docs.feathersjs.com/guides/chat/readme.html",
+  "description": "Learning and annotations from https://docs.feathersjs.com/guides/chat/readme.html",
   "version": "0.0.0",
   "homepage": "",
   "main": "src",
-  "keywords": ["feathers"],
+  "keywords": [
+    "feathers"
+  ],
   "author": {
     "name": "Larry Botha",
     "email": "larry@fixate.it"
@@ -34,7 +35,9 @@
     "@feathersjs/socketio": "^3.2.0",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
+    "feathers-nedb": "^3.0.0",
     "helmet": "^3.11.0",
+    "nedb": "^1.8.0",
     "serve-favicon": "^2.4.5",
     "winston": "^2.4.0"
   },
