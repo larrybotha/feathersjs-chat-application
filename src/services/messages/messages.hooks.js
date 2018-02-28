@@ -1,14 +1,17 @@
-
+const authentication = require('@feathersjs/authentication').hooks;
 
 module.exports = {
   before: {
-    all: [],
+    // this limits requests to the messages service to only users who
+    // are authenticated
+    // This also automatically params.user only for authenticated users
+    all: [authentication('jwt')],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -18,7 +21,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -28,6 +31,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };
