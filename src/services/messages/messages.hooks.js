@@ -1,5 +1,7 @@
 const {authenticate} = require('@feathersjs/authentication').hooks;
 
+const populateUser = require('../../hooks/populate-user');
+
 module.exports = {
   before: {
     // this limits requests to the messages service to only users who
@@ -15,7 +17,7 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [populateUser()],
     find: [],
     get: [],
     create: [],
