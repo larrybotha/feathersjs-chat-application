@@ -1,5 +1,9 @@
 const {authenticate} = require('@feathersjs/authentication').hooks;
 
+const processMessage = require('../../hooks/process-message');
+
+const populateUser = require('../../hooks/populate-user');
+
 module.exports = {
   before: {
     // this limits requests to the messages service to only users who
@@ -8,14 +12,14 @@ module.exports = {
     all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [],
+    create: [processMessage()],
     update: [],
     patch: [],
     remove: [],
   },
 
   after: {
-    all: [],
+    all: [populateUser()],
     find: [],
     get: [],
     create: [],
