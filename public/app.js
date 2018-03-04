@@ -85,44 +85,20 @@ const showLogin = (error = {}) => {
 const showChat = async () => {
   document.getElementById('app').innerHTML = chatHTML;
 
-  // from the messages service, asynchronously fetch messages
-  const messages = await client.service('messages').find({
-    // make a query for messages
-    query: {
-      // sorting the messages from newest to oldest
+  // asynchronously get messages and users
+  const [messages, users] = await Promise.all([
+    client.service('messages').find({
       $sort: {createdAt: -1},
-      // and retreiving a maximum of 25
       $limit: 25,
-    },
-  });
+    }),
+    client.service('users').find(),
+  ]);
 
   // and then display the messages once the service resolves
-  messages.data
-    .slice()
-    .reverse()
-    .map(addMessage);
-
-  // then, asynchronously get the users, blocking further execution
-  const users = await client.service('users').find({});
+  messages.data.reverse().map(addMessage);
 
   // and display them once we have a response.
   users.data.map(addUser);
-
-  // The above two tasks could have been run in parallel using Promise.all,
-  // or by executing both functions, and then assigning them with an await
-  // after they're both pending
-  // e.g.
-  // const messagesPromise = client.service('messages').find(...)
-  // const usersPromise = client.service('users').find(...)
-  //
-  // const messages = await messagesPromise;
-  // const users = await usersPromise;
-
-  // or instead using Promise.all:
-  // const [messages, users] = await Promise.all([
-  //    client.services('messages').find(...),
-  //    client.services('users').find(...),
-  // ]);
 };
 
 const getCredentials = () => {
